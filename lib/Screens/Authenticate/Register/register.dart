@@ -1,0 +1,261 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:samachar/Screens/Authenticate/Register/otp_screen.dart';
+import 'package:samachar/Services/auth.dart';
+import 'package:samachar/Shared/already_signInOrsignUp.dart';
+import 'package:samachar/Shared/divider.dart';
+import 'package:samachar/Shared/input_fields.dart';
+import 'package:samachar/Shared/loading.dart';
+import 'package:samachar/Shared/password_field.dart';
+import 'package:samachar/Shared/rounded_button.dart';
+import 'package:samachar/Shared/social_icons.dart';
+
+class Register extends StatefulWidget {
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  //Defining instances here
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+  //Defining the variables here
+  bool loading = false;
+  String email = '';
+  String password = '';
+  String name = '';
+  String phone = '';
+  String error = '';
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return loading
+        ? Loading()
+        : Scaffold(
+            body: Container(
+              height: size.height,
+              width: double.infinity,
+              // Here i can use size.width but use double.infinity because both work as a same
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Image.asset(
+                      "assets/signup_top.png",
+                      width: size.width * 0.35,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Image.asset(
+                      "assets/main_bottom.png",
+                      width: size.width * 0.25,
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          //SizedBox(height: size.height * 0.01),
+                          // Text(
+                          //   "SIGNUP",
+                          //   style: TextStyle(fontWeight: FontWeight.bold),
+                          // ),
+                          SizedBox(height: size.height * 0.05),
+                          SvgPicture.asset(
+                            "assets/signup.svg",
+                            height: size.height * 0.30,
+                          ),
+
+                          //These Containers can be improved all of them using .cpy with property
+
+                          InputField(
+                            valid: (val) {
+                              if (val != null) {
+                                return val.length == 0
+                                    ? 'Enter Your Name!'
+                                    : null;
+                              } else {
+                                error = "Enter Your Name***";
+                              }
+                            },
+                            changed: (val) {
+                              setState(() {
+                                name = val;
+                              });
+                            },
+                            hintText: "Your Name",
+                            icon: Icons.person,
+                          ),
+                          InputField(
+                            valid: (val) {
+                              if (val != null) {
+                                return val.isEmpty ? 'Enter an Email!!' : null;
+                              } else {
+                                error = "Enter an Email***";
+                              }
+                            },
+                            changed: (val) {
+                              setState(() {
+                                email = val;
+                              });
+                            },
+                            hintText: "Your Email",
+                            icon: Icons.email,
+                          ),
+                          InputField(
+                            valid: (val) {
+                              if (val != null) {
+                                return val.length < 10
+                                    ? 'Invalid Phone Number!'
+                                    : null;
+                              } else {
+                                error = "Invalid Phone Number***";
+                              }
+                            },
+                            changed: (val) {
+                              setState(() {
+                                phone = val;
+                              });
+                            },
+                            hintText: "Your Phone",
+                            icon: Icons.phone,
+                          ),
+
+                          PasswordField(
+                            valid: (val) {
+                              if (val != null) {
+                                return val.length < 6
+                                    ? 'Enter the password 6+ chars long!!'
+                                    : null;
+                              } else {
+                                error = "Enter the password 6+ chars long***";
+                              }
+                            },
+                            changed: (val) {
+                              setState(() {
+                                password = val;
+                              });
+                            },
+                            hintText: "Password",
+                            icon: Icons.lock,
+                          ),
+
+                          PasswordField(
+                            valid: (val) {
+                              if (val != null) {
+                                return val != password
+                                    ? 'Password does not match!!'
+                                    : null;
+                              } else {
+                                error = "Password does not match***";
+                              }
+                            },
+                            changed: (val) {
+                              // No requirement
+                            },
+                            hintText: "Re-Enter the Password",
+                            icon: Icons.lock,
+                          ),
+
+                          RoundedButton(
+                            pressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  loading = true;
+                                });
+                                dynamic result =
+                                    await _auth.registerWithEmailAndPassword(
+                                        email, password, name, phone);
+                                if (result == null) {
+                                  setState(() {
+                                    error = "Please Supply a valid email***";
+                                    loading = false;
+                                  });
+                                } 
+                                else {
+                                  //Navigator.pushNamed(context, '/NewsSubscriptionPage');
+                                  //setState(() {
+                                    Navigator.pushNamed(context, '/Home');
+                                  //});
+                                }
+                              }
+                              print(error);
+                            },
+                            whichAuthentication: "SIGN UP",
+                          ),
+
+                          SizedBox(height: size.height * 0.01),
+
+                          AlreadySignInOrSignUp(
+                            tap: () {
+                              Navigator.pushNamed(context, '/SignIn');
+                            },
+                            text2: "SIGN IN",
+                            text1: "Already have an Account ? ",
+                          ),
+
+                          GetDivider(),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              // SocialIcon(
+                              //   image: "assets/facebook.svg",
+                              //   tap: () {},
+                              // ),
+                              //This is Phone Sign In
+                              SocialIcon(
+                                image: "assets/phone2.svg",
+                                tap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) {
+                                      return OTPScreen(phoneNumber: phone);
+                                    }),
+                                  );
+                                },
+                              ),
+                              SocialIcon(
+                                image: "assets/google-plus.svg",
+                                tap: () async {
+                                  setState(() {
+                                    loading = true;
+                                  });
+                                  dynamic result =
+                                      await _auth.signInWithGoogle();
+                                  if (result == null) {
+                                    setState(() {
+                                      error = "Please Supply a valid email";
+                                      loading = false;
+                                    });
+                                  } else {
+                                    Navigator.pushNamed(context, '/Home');
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.02),
+                          Text(
+                            error,
+                            style: TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+  }
+}
