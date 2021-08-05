@@ -27,23 +27,20 @@ import 'package:samachar/Models/custom_user_data.dart';
 import 'package:samachar/Models/customized_user.dart';
 import 'package:samachar/Services/database.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   AuthService _auth = AuthService();
-  return runApp(
-    MultiProvider(
-      providers : [
-       ChangeNotifierProvider(create: (context) => AuthService()),
-
-       ChangeNotifierProvider(create: (context) => DatabaseService(uid: _auth.currentUser()!.uid)),
-        
-      ],
-      child: MyApp(),
-    )
-    //MyApp()
-  );
+  return runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AuthService()),
+      ChangeNotifierProvider(
+          create: (context) => DatabaseService(uid: _auth.currentUser()!.uid)),
+    ],
+    child: MyApp(),
+  )
+      //MyApp()
+      );
 }
 
 class MyApp extends StatelessWidget {
@@ -51,29 +48,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthService>(context);
     return MaterialApp(
-        //initialRoute: '/',
-        routes: {
-          //'/': (context) => Wrapper(),
-          '/WelcomeScreen': (context) => WelcomeScreen(),
-          '/SignIn': (context) => auth.loggedIn ? Home() : SignIn(),
-          '/Register': (context) => Register(),
-          '/Home': (context) => auth.loggedIn ? Home() : SignIn(),
-          '/Mews': (context) => Mews(),
-          '/SingleCategory': (context) => SingleCategory(urlNews: ' '),
-          '/MultipleCategory': (context) => MultipleCategory(),
-          '/NewsPaper': (context) => NewsPaper(),
-          '/Profile': (context) => Profile(),
-          '/CategoryWiseNews': (context) => CategoryWiseNews(),
-          '/SettingsForm' : (context) => SettingsForm(),
-          '/NewsSubscriptionPage' : (context) => NewsSubscriptionPage(),
-        },
-        home: auth.loggedIn ? Home() : SignIn(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Color(0xFF6F35A5),
-          scaffoldBackgroundColor: Colors.white,
-        ),
-        supportedLocales: [
+      //initialRoute: '/',
+      routes: {
+        //'/': (context) => Wrapper(),
+        '/WelcomeScreen': (context) => WelcomeScreen(),
+        '/SignIn': (context) => auth.loggedIn ? Home() : SignIn(),
+        '/Register': (context) => auth.loggedIn ? Home() : Register(),
+        '/Home': (context) => auth.loggedIn ? Home() : SignIn(),
+        '/Mews': (context) => Mews(),
+        '/SingleCategory': (context) => SingleCategory(urlNews: ' '),
+        '/MultipleCategory': (context) => MultipleCategory(),
+        '/NewsPaper': (context) => NewsPaper(),
+        '/Profile': (context) => Profile(),
+        '/CategoryWiseNews': (context) => CategoryWiseNews(),
+        '/SettingsForm': (context) => SettingsForm(),
+        '/NewsSubscriptionPage': (context) => NewsSubscriptionPage(),
+      },
+      home: auth.loggedIn ? Home() : SignIn(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Color(0xFF6F35A5),
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      supportedLocales: [
         const Locale('en'),
         const Locale('es'),
         const Locale('el'),
@@ -85,18 +82,18 @@ class MyApp extends StatelessWidget {
         const Locale('hi'),
         const Locale('ne'),
         const Locale('uk'),
-        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'), // Generic Simplified Chinese 'zh_Hans'
-        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'), // Generic traditional Chinese 'zh_Hant'
+        const Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hans'), // Generic Simplified Chinese 'zh_Hans'
+        const Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hant'), // Generic traditional Chinese 'zh_Hant'
       ],
       localizationsDelegates: [
         CountryLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      
     );
   }
 }
-
-
-      

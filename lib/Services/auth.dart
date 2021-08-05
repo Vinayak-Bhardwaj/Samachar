@@ -64,7 +64,7 @@ class AuthService extends ChangeNotifier{
       notifyListeners();
       //return customizedUser;
     } catch(e) {
-      print(e.toString);
+      print(e.toString());
       notifyListeners();
       //return null;
     }

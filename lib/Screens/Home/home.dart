@@ -51,6 +51,7 @@ class _HomeState extends State<Home> {
     // print(size.width);
     return Scaffold(
       appBar: AppBar(
+        leading: Container(),
         title: Text(appBar[page]),
         backgroundColor: Colors.indigo[400],
         elevation: 50.0,
