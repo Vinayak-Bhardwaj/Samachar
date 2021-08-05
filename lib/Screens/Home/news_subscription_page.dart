@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:samachar/Shared/subscription_card.dart';
 
 class NewsSubscriptionPage extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _NewsSubscriptionPageState extends State<NewsSubscriptionPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("News Subscription Page"),
+        backgroundColor: Colors.indigo
       ),
       body: Container(
         height: size.height,
@@ -43,9 +45,32 @@ class _NewsSubscriptionPageState extends State<NewsSubscriptionPage> {
                 width: size.width * 0.25,
               ),
             ),
-            //SingleChildScrollView(
-               
-            //),
+            SingleChildScrollView(
+               child: Column(
+                 children: <Widget>[
+                   Row(
+                     children: [
+                       SubscriptionCard(image: 'entertainment.jpeg', categoryName: 'Entertainment'),
+                       SubscriptionCard(image: 'sports4.jpeg', categoryName: 'Sports'),
+                     ],
+                   ),
+                   SizedBox(height: 30.0),
+                   Row(
+                     children: [
+                       SubscriptionCard(image: 'health2.png', categoryName: 'Health'),
+                       SubscriptionCard(image: 'science4.png', categoryName: 'Science'),
+                     ],
+                   ),
+                   SizedBox(height: 30.0),
+                   Row(
+                     children: [
+                       SubscriptionCard(image: 'techq.png', categoryName: 'Technology'),
+                       SubscriptionCard(image: 'business4.jpeg', categoryName: 'Business'),
+                     ],
+                   ),
+                 ],
+               ),
+            ),
           ],
         ),
       ),

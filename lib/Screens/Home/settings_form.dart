@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:samachar/Models/custom_user_data.dart';
+import 'package:samachar/Services/auth.dart';
 import 'package:samachar/Services/database.dart';
 import 'package:samachar/Shared/rounded_button.dart';
 
@@ -17,11 +18,14 @@ class _SettingsFormState extends State<SettingsForm> {
   String? _currentEmailId;
   String? _currentNewsSubscription;
 
+  AuthService _auth = AuthService();
+
   
   
   @override
   Widget build(BuildContext context) {
-    final customUserData = Provider.of<CustomUserData>(context);
+    final customUserData = Provider.of<DatabaseService>(context);
+    Map Data = ModalRoute.of(context)!.settings.arguments as Map;
     
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -72,7 +76,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                     child: TextFormField(
-                      initialValue: customUserData.name,
+                      initialValue: Data['name'],
                       decoration: InputDecoration(
                         fillColor: Color(0xFFF1E6FF),
                         filled: true,
@@ -94,7 +98,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                     child: TextFormField(
-                      initialValue: customUserData.emailId,
+                      initialValue: Data['emailId'],
                       decoration: InputDecoration(
                         fillColor: Color(0xFFF1E6FF),
                         filled: true,
@@ -116,7 +120,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                     child: TextFormField(
-                      initialValue: customUserData.phoneNumber,
+                      initialValue: Data['phoneNo'],
                       decoration: InputDecoration(
                         fillColor: Color(0xFFF1E6FF),
                         filled: true,
@@ -144,11 +148,11 @@ class _SettingsFormState extends State<SettingsForm> {
                   RoundedButton(whichAuthentication: "Update", pressed: () async{
                     if(_formKey.currentState!.validate()) {
                       print("Hello Im here");
-                      await DatabaseService(uid: customUserData.uid).updateUserData(
-                        _currentName ?? customUserData.name,
-                        _currentEmailId ?? customUserData.emailId, 
-                        _currentPhoneNumber ?? customUserData.phoneNumber,
-                        _currentNewsSubscription ?? customUserData.newsSubscription,
+                      await DatabaseService(uid: _auth.currentUser()!.uid).updateUserData(
+                        _currentName ?? Data['name'],
+                        _currentEmailId ?? Data['emailId'], 
+                        _currentPhoneNumber ?? Data['phoneNo'],
+                        _currentNewsSubscription ?? Data['newsSubscription'],
                       );
                       Navigator.pop(context);
                     }

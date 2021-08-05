@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:samachar/Screens/Authenticate/Register/otp_screen.dart';
 import 'package:samachar/Services/auth.dart';
 import 'package:samachar/Shared/already_signInOrsignUp.dart';
@@ -18,7 +19,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   //Defining instances here
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   //Defining the variables here
@@ -31,6 +32,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    final _auth = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     return loading
         ? Loading()
@@ -169,24 +171,24 @@ class _RegisterState extends State<Register> {
                           RoundedButton(
                             pressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  loading = true;
-                                });
-                                dynamic result =
+                                // setState(() {
+                                //   loading = true;
+                                // });
+                                
                                     await _auth.registerWithEmailAndPassword(
                                         email, password, name, phone);
-                                if (result == null) {
-                                  setState(() {
-                                    error = "Please Supply a valid email***";
-                                    loading = false;
-                                  });
-                                } 
-                                else {
-                                  //Navigator.pushNamed(context, '/NewsSubscriptionPage');
-                                  //setState(() {
-                                    Navigator.pushNamed(context, '/Home');
-                                  //});
-                                }
+                                // if (result == null) {
+                                //   setState(() {
+                                //     error = "Please Supply a valid email***";
+                                //     loading = false;
+                                //   });
+                                // } 
+                                // else {
+                                //   //Navigator.pushNamed(context, '/NewsSubscriptionPage');
+                                //   //setState(() {
+                                //     //Navigator.pushNamed(context, '/Home');
+                                //   //});
+                                // }
                               }
                               print(error);
                             },

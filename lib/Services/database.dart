@@ -1,40 +1,60 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase/firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:samachar/Models/custom_user_data.dart';
 import 'package:samachar/Models/customized_user.dart';
 
-class DatabaseService {
+class DatabaseService with ChangeNotifier{
+  
+  
   final String? uid;
   DatabaseService({this.uid});
 
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('user');
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
 
-  Future updateUserData(String? name, String? emailId, String? phoneNo,
-      String? newsSubscription) async {
-    return await userCollection.doc(uid).set({
+  Map mappedDoc = {};
+
+  
+  Future<void> updateUserData(String? name, String? emailId, String? phoneNo, String? newsSubscription) async {
+     await userCollection.doc(uid).set({
       'name': name,
       'emailId': emailId,
       'phoneNo': phoneNo,
       'newsSubscription': newsSubscription,
     });
+    notifyListeners();
   }
 
+  
   CustomUserData customUserDataFromSnapshot(DocumentSnapshot snapshot) {
-    var data = (snapshot.data() as Map<String,dynamic>);
+    //var data = (snapshot.data() as Map);
     return CustomUserData(
       uid: uid,
+      name: snapshot['name'],
+      phoneNumber: snapshot['phoneNumber'],
+      emailId: snapshot['emailId'],
+      newsSubscription: snapshot['newsSubscription'] ?? 'none',
       //name: snapshot['name'],
-      name: data['name'],
-      phoneNumber: data['phoneNo'],
-      emailId: data['emailId'],
-      newsSubscription: data['newsSubscription'] ?? 'none',
+      // name: data['name'],
+      // phoneNumber: data['phoneNo'],
+      // emailId: data['emailId'],
+      // newsSubscription: data['newsSubscription'] ?? 'none',
       //imageurl: snapshot['ima']
     );
   }
   
   
-  Stream<CustomUserData> get customUserData {
-    return userCollection.doc(uid).snapshots().map(customUserDataFromSnapshot);
+  // Stream<CustomUserData> get customUserData {
+  //   return userCollection.doc(uid).snapshots().map(customUserDataFromSnapshot);
+  // }
+
+  Future getData(String uid) async{
+    DocumentSnapshot doc = await FirebaseFirestore.instance.collection('user').doc(uid).get();
+    mappedDoc = doc.data() as Map;
+    // print(mappedDoc['name']);
+    // print(mappedDoc['emailId']);
+    // print(mappedDoc['phoneNumber']);
+    // print(mappedDoc['newsSubscription']);
   }
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:samachar/Services/auth.dart';
 import 'package:samachar/Shared/already_signInOrsignUp.dart';
 import 'package:samachar/Shared/input_fields.dart';
@@ -14,7 +15,10 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   //Declaring instances
-  AuthService _auth = AuthService();
+  //AuthService _auth = AuthService();
+
+  
+
   final _formKey = GlobalKey<FormState>();
 
   //Declaring variables
@@ -27,6 +31,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final _auth = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     return loading
         ? Loading()
@@ -118,7 +123,7 @@ class _SignInState extends State<SignIn> {
                                     loading = false;
                                   });
                                 } else {
-                                  Navigator.pushNamed(context, '/Home');
+                                  //Navigator.pushNamed(context, '/Home');
                                 }
                               }
                             },

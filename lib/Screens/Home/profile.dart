@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:samachar/Models/custom_user_data.dart';
@@ -15,6 +16,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     //final customizedUser = Provider.of<CustomizedUser?>(context);
+    final FirebaseAuth _auth = FirebaseAuth.instance;
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -44,7 +46,7 @@ class _ProfileState extends State<Profile> {
 
 
     // return StreamBuilder<CustomUserData>(
-    //   stream: DatabaseService(uid: customizedUser!.uid).customUserData,
+    //   stream: DatabaseService(uid: _auth.currentUser?.uid).customUserData,
     //   builder: (context, snapshot) {
     //     if (snapshot.hasData) {
     //       CustomUserData? customUserData = snapshot.data;
@@ -102,6 +104,7 @@ class _ProfileState extends State<Profile> {
     //     }
     //   },
     // );
+
   }
 }
 

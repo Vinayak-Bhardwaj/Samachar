@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:samachar/Screens/Home/mews.dart';
 import 'package:samachar/Screens/Home/multiple_category_news.dart';
 import 'package:samachar/Screens/Home/newspaper.dart';
@@ -13,7 +14,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  AuthService _auth = AuthService();
+
+
+  //AuthService _auth = AuthService();
   int page = 0;
 
   List<String> appBar = [
@@ -26,8 +29,21 @@ class _HomeState extends State<Home> {
 
   String generalNews =  'https://newsapi.org/v2/top-headlines?country=in&apiKey=acc6c7e1be91477bba7be4d79748a695';
 
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   Future.delayed(Duration(seconds: 1), (){
+  //     setState((){});
+  //   });
+  // }
+  
+  
   @override
   Widget build(BuildContext context) {
+    
+    
+    print("BHai ab to me home ke build me hu&&&&&&&&&&&&&&&&&&");
+    final _auth = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     //Size size = MediaQuery.of(context).size;
     //_auth.signOut();
@@ -40,11 +56,11 @@ class _HomeState extends State<Home> {
         elevation: 50.0,
         shadowColor: Colors.black,
         actions: <Widget>[
-          ElevatedButton(
+          IconButton(
             onPressed: (){
               _auth.signOut();
             },
-            child: Text("Sign Out"),
+            icon: Icon(Icons.person),
           ),
         ],
       ),

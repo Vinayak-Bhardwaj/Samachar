@@ -6,6 +6,7 @@ import 'package:samachar/Models/customized_user.dart';
 import 'package:samachar/Screens/Authenticate/Register/otp_screen.dart';
 import 'package:samachar/Screens/Authenticate/Register/register.dart';
 import 'package:samachar/Screens/Authenticate/SignIn/sign_in.dart';
+import 'package:samachar/Screens/Authenticate/authenticate.dart';
 import 'package:samachar/Screens/Authenticate/welcome_screen.dart';
 import 'package:samachar/Screens/Home/category_wise_news.dart';
 import 'package:samachar/Screens/Home/home.dart';
@@ -30,49 +31,33 @@ import 'package:samachar/Services/database.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //NewsService();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  // CustomUserData prev = CustomUserData();
-  // CustomUserData now = CustomUserData(uid: _auth.currentUser?.uid);
+  AuthService _auth = AuthService();
   return runApp(
     MultiProvider(
       providers : [
-        StreamProvider<CustomizedUser?>.value(
-          value: AuthService().streamUser,
-          initialData: null,
-        ),
-        
-        StreamProvider<CustomUserData>.value(
-          value: DatabaseService(uid: _auth.currentUser?.uid).customUserData,
-          initialData: CustomUserData(name: 'please refresh'),
-          //updateShouldNotify: (prev,now) => true,
-        )
-        
+       ChangeNotifierProvider(create: (context) => AuthService()),
+
+       ChangeNotifierProvider(create: (context) => DatabaseService(uid: _auth.currentUser()!.uid)),
         
       ],
       child: MyApp(),
     )
+    //MyApp()
   );
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    // NewsService news = NewsService();
-
-    
-
-    // news.getNews();
-
+    final auth = Provider.of<AuthService>(context);
     return MaterialApp(
-        initialRoute: '/',
+        //initialRoute: '/',
         routes: {
-          '/': (context) => Wrapper(),
+          //'/': (context) => Wrapper(),
           '/WelcomeScreen': (context) => WelcomeScreen(),
-          '/SignIn': (context) => SignIn(),
+          '/SignIn': (context) => auth.loggedIn ? Home() : SignIn(),
           '/Register': (context) => Register(),
-          '/Home': (context) => Home(),
+          '/Home': (context) => auth.loggedIn ? Home() : SignIn(),
           '/Mews': (context) => Mews(),
           '/SingleCategory': (context) => SingleCategory(urlNews: ' '),
           '/MultipleCategory': (context) => MultipleCategory(),
@@ -81,10 +66,9 @@ class MyApp extends StatelessWidget {
           '/CategoryWiseNews': (context) => CategoryWiseNews(),
           '/SettingsForm' : (context) => SettingsForm(),
           '/NewsSubscriptionPage' : (context) => NewsSubscriptionPage(),
-          //'/OTPScreen' : (context) => OTPScreen(),
         },
+        home: auth.loggedIn ? Home() : SignIn(),
         debugShowCheckedModeBanner: false,
-        //home: Wrapper(),
         theme: ThemeData(
           primaryColor: Color(0xFF6F35A5),
           scaffoldBackgroundColor: Colors.white,
