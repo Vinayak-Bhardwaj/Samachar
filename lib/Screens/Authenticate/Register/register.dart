@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +17,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  //Defining instances here
-  //final AuthService _auth = AuthService();
+
   final _formKey = GlobalKey<FormState>();
 
-  //Defining the variables here
   bool loading = false;
   String email = '';
   String password = '';
@@ -40,7 +37,6 @@ class _RegisterState extends State<Register> {
             body: Container(
               height: size.height,
               width: double.infinity,
-              // Here i can use size.width but use double.infinity because both work as a same
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -66,18 +62,13 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          //SizedBox(height: size.height * 0.01),
-                          // Text(
-                          //   "SIGNUP",
-                          //   style: TextStyle(fontWeight: FontWeight.bold),
-                          // ),
+                          
                           SizedBox(height: size.height * 0.05),
+                          
                           SvgPicture.asset(
                             "assets/signup.svg",
                             height: size.height * 0.30,
                           ),
-
-                          //These Containers can be improved all of them using .cpy with property
 
                           InputField(
                             valid: (val) {
@@ -97,6 +88,7 @@ class _RegisterState extends State<Register> {
                             hintText: "Your Name",
                             icon: Icons.person,
                           ),
+
                           InputField(
                             valid: (val) {
                               if (val != null) {
@@ -113,6 +105,7 @@ class _RegisterState extends State<Register> {
                             hintText: "Your Email",
                             icon: Icons.email,
                           ),
+                          
                           InputField(
                             valid: (val) {
                               if (val != null) {
@@ -171,18 +164,18 @@ class _RegisterState extends State<Register> {
                           RoundedButton(
                             pressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                // setState(() {
-                                //   loading = true;
-                                // });
+                                setState(() {
+                                  loading = true;
+                                });
                                 
-                                    await _auth.registerWithEmailAndPassword(
+                                    dynamic result = await _auth.registerWithEmailAndPassword(
                                         email, password, name, phone);
-                                // if (result == null) {
-                                //   setState(() {
-                                //     error = "Please Supply a valid email***";
-                                //     loading = false;
-                                //   });
-                                // } 
+                                if (result == null) {
+                                  setState(() {
+                                    error = "Please Supply a valid email***";
+                                    loading = false;
+                                  });
+                                } 
                                 // else {
                                 //   //Navigator.pushNamed(context, '/NewsSubscriptionPage');
                                 //   //setState(() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:samachar/Services/news_service.dart';
+import 'package:samachar/Shared/loading.dart';
 import 'package:samachar/Shared/news_cards.dart';
 
 class SingleCategory extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SingleCategoryState extends State<SingleCategory> {
           );
         }
         else{
-          return CircularProgressIndicator();
+          return Loading();
         }
       }
     );

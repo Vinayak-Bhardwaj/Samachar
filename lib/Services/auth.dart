@@ -6,7 +6,7 @@ import 'package:samachar/Services/database.dart';
 
 class AuthService extends ChangeNotifier{
   
-  //INSTANCES
+  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   bool loggedIn = false;
@@ -14,29 +14,15 @@ class AuthService extends ChangeNotifier{
   AuthService() {
     loggedIn = _auth.currentUser != null;
   }
-
   
-  // // auth change user stream
-  // Stream<CustomizedUser?> get streamUser {
-  //   return _auth.authStateChanges().map((User? user) => _userFromFirebaseUser(user));
-  // }
-
-  
-  // ALL FUNCTIONS
-  
-  //1.Function to extract user object with same uid from a firebase user
   CustomizedUser? _userFromFirebaseUser(User? user) {
     return (user != null) ? CustomizedUser(uid: user.uid) : null;
   }
 
-  
-  //2.Function to retrieve current user
   User? currentUser() {
     return _auth.currentUser;
   }
 
-
-  //3.Sign In with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
     try{
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -52,21 +38,19 @@ class AuthService extends ChangeNotifier{
     }
   }
 
-  //4.Register with email and password
   Future registerWithEmailAndPassword(String email, String password, String name, String phoneNo) async {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      print("******************Hi I am here");
       User? user = result.user;
       CustomizedUser? customizedUser = _userFromFirebaseUser(user);
       await DatabaseService(uid: customizedUser!.uid).updateUserData(name, email, phoneNo, 'none');
       loggedIn = true;
       notifyListeners();
-      //return customizedUser;
+      return customizedUser;
     } catch(e) {
       print(e.toString());
       notifyListeners();
-      //return null;
+      return null;
     }
   }
 
@@ -95,6 +79,9 @@ class AuthService extends ChangeNotifier{
       UserCredential result = await _auth.signInWithCredential(credential);
       User? user = result.user;
       CustomizedUser? customizedUser = _userFromFirebaseUser(user);
+      await DatabaseService(uid: customizedUser!.uid).updateUserData(result.user!.displayName, result.user!.email, result.user!.phoneNumber, 'none');
+      loggedIn = true;
+      notifyListeners();
       return customizedUser;
     } on FirebaseAuthException catch(e) {
       print(e.toString());
@@ -104,6 +91,8 @@ class AuthService extends ChangeNotifier{
 
   //7.Google SignOut
   Future<void> signOutGoogle() async {
+    loggedIn = false;
+    notifyListeners();
     await _googleSignIn.signOut();
   }
 

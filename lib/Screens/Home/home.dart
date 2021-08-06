@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     
     
-    print("BHai ab to me home ke build me hu&&&&&&&&&&&&&&&&&&");
+    //print("BHai ab to me home ke build me hu&&&&&&&&&&&&&&&&&&");
     final _auth = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     //Size size = MediaQuery.of(context).size;
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
     // print(size.width);
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
+        //leading: Container(),
         title: Text(appBar[page]),
         backgroundColor: Colors.indigo[400],
         elevation: 50.0,

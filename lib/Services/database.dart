@@ -25,6 +25,12 @@ class DatabaseService with ChangeNotifier{
     notifyListeners();
   }
 
+  Future<void> updateNewsSubscription(String? newsSubscription) async {
+    await userCollection.doc(uid).update({
+      'newsSubscription': newsSubscription,
+    });
+  }
+
   
   CustomUserData customUserDataFromSnapshot(DocumentSnapshot snapshot) {
     //var data = (snapshot.data() as Map);

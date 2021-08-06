@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:samachar/Shared/rounded_button.dart';
 import 'package:samachar/Shared/subscription_card.dart';
 
 class NewsSubscriptionPage extends StatefulWidget {
@@ -50,24 +51,30 @@ class _NewsSubscriptionPageState extends State<NewsSubscriptionPage> {
                  children: <Widget>[
                    Row(
                      children: [
-                       SubscriptionCard(image: 'entertainment.jpeg', categoryName: 'Entertainment'),
-                       SubscriptionCard(image: 'sports4.jpeg', categoryName: 'Sports'),
+                       SubscriptionCard(image: 'entertainment.jpeg', categoryName: 'Entertainment', newsSubscription: "entertainment"),
+                       SubscriptionCard(image: 'sports4.jpeg', categoryName: 'Sports', newsSubscription: "sports"),
                      ],
                    ),
                    SizedBox(height: 30.0),
                    Row(
                      children: [
-                       SubscriptionCard(image: 'health2.png', categoryName: 'Health'),
-                       SubscriptionCard(image: 'science4.png', categoryName: 'Science'),
+                       SubscriptionCard(image: 'health2.png', categoryName: 'Health', newsSubscription: "health"),
+                       SubscriptionCard(image: 'science4.png', categoryName: 'Science', newsSubscription: "science"),
                      ],
                    ),
                    SizedBox(height: 30.0),
                    Row(
                      children: [
-                       SubscriptionCard(image: 'techq.png', categoryName: 'Technology'),
-                       SubscriptionCard(image: 'business4.jpeg', categoryName: 'Business'),
+                       SubscriptionCard(image: 'techq.png', categoryName: 'Technology', newsSubscription: "technology"),
+                       SubscriptionCard(image: 'business4.jpeg', categoryName: 'Business', newsSubscription: "business"),
                      ],
                    ),
+                   
+                   SizedBox(height: 30.0),
+                   
+                   RoundedButton(whichAuthentication: "SUBMIT", pressed: (){
+                     Navigator.pushNamed(context, '/Home');
+                   })
                  ],
                ),
             ),

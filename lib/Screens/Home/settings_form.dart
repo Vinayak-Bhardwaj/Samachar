@@ -154,7 +154,7 @@ class _SettingsFormState extends State<SettingsForm> {
                         _currentPhoneNumber ?? Data['phoneNo'],
                         _currentNewsSubscription ?? Data['newsSubscription'],
                       );
-                      Navigator.pop(context);
+                      Navigator.pushNamed(context, '/Home');
                     }
                   }),
 
