@@ -19,12 +19,12 @@ class _InputFieldState extends State<InputField> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+      margin: EdgeInsets.symmetric(vertical: size.height*0.00609),
+      padding: EdgeInsets.symmetric(horizontal: size.width*0.0486, vertical: size.height*0.0036),
       width: size.width * 0.8,
       decoration: BoxDecoration(
         color: Color(0xFFF1E6FF),
-        borderRadius: BorderRadius.circular(29),
+        borderRadius: BorderRadius.circular(size.height*0.0353),
       ),
       child: TextFormField(
         validator: widget.valid,

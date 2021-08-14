@@ -55,14 +55,14 @@ class _NewsSubscriptionPageState extends State<NewsSubscriptionPage> {
                        SubscriptionCard(image: 'sports4.jpeg', categoryName: 'Sports', newsSubscription: "sports"),
                      ],
                    ),
-                   SizedBox(height: 30.0),
+                   SizedBox(height: size.height * 0.036),
                    Row(
                      children: [
                        SubscriptionCard(image: 'health2.png', categoryName: 'Health', newsSubscription: "health"),
                        SubscriptionCard(image: 'science4.png', categoryName: 'Science', newsSubscription: "science"),
                      ],
                    ),
-                   SizedBox(height: 30.0),
+                   SizedBox(height: size.height * 0.036),
                    Row(
                      children: [
                        SubscriptionCard(image: 'techq.png', categoryName: 'Technology', newsSubscription: "technology"),
@@ -70,7 +70,7 @@ class _NewsSubscriptionPageState extends State<NewsSubscriptionPage> {
                      ],
                    ),
                    
-                   SizedBox(height: 30.0),
+                   SizedBox(height: size.height*0.036),
                    
                    RoundedButton(whichAuthentication: "SUBMIT", pressed: (){
                      Navigator.pushNamed(context, '/Home');

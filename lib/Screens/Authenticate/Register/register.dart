@@ -203,11 +203,6 @@ class _RegisterState extends State<Register> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              // SocialIcon(
-                              //   image: "assets/facebook.svg",
-                              //   tap: () {},
-                              // ),
-                              //This is Phone Sign In
                               SocialIcon(
                                 image: "assets/phone2.svg",
                                 tap: () {

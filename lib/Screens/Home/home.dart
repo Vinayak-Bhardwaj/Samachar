@@ -104,30 +104,30 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
           index: 0,
-          height: 60,
+          height: size.height*0.073,
           buttonBackgroundColor: Colors.red[100],
           backgroundColor: Colors.white10,
           color: Colors.grey,
           items: <Widget>[
             ImageIcon(
               AssetImage("assets/news2.png"),
-              size: 32,
+              size: size.height*0.03902,
             ),
             ImageIcon(
               AssetImage("assets/news3.png"),
-              size: 32,
+              size: size.height*0.03902,
             ),
             ImageIcon(
               AssetImage("assets/newspaper.png"),
-              size: 32,
+              size: size.height*0.03902,
             ),
             ImageIcon(
               AssetImage("assets/laughingFinal.png"),
-              size: 32,
+              size: size.height*0.03902,
             ),
             ImageIcon(
               AssetImage("assets/profile.png"),
-              size: 32,
+              size: size.height*0.03902,
             ),
           ],
           animationDuration: Duration(milliseconds: 500),

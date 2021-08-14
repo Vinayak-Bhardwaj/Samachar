@@ -10,7 +10,7 @@ class MultipleCategory extends StatefulWidget {
 class _MultipleCategoryState extends State<MultipleCategory> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return CategoryCard();
   }
 }

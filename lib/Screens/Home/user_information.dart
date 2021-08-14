@@ -19,39 +19,45 @@ class _UserInformationState extends State<UserInformation> {
     final customUserData = Provider.of<DatabaseService>(context);
     //Map mappedDoc = customUserData.getData(_auth.currentUser()!.uid);
 
+    Size size = MediaQuery.of(context).size;
     return FutureBuilder(
         future: customUserData.getData(_auth.currentUser()!.uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Column(
               children: <Widget>[
-                Text(
-                    'NAME : ${customUserData.mappedDoc['name']}',
+                Text('NAME : ${customUserData.mappedDoc['name']}',
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: size.height * 0.0243,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5)),
-                SizedBox(height: 20.0),
-                Text(
-                    'EMAIL : ${customUserData.mappedDoc['emailId']}',
+                SizedBox(height: size.height * 0.0243),
+                Text('EMAIL : ${customUserData.mappedDoc['emailId']}',
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: size.height * 0.0243,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5)),
-                SizedBox(height: 20.0),
+                SizedBox(height: size.height * 0.0243),
                 Text(
                     'NEWS SUBSCRIPTION : ${customUserData.mappedDoc['newsSubscription']}',
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: size.height * 0.0243,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5)),
-                SizedBox(height: 20.0),
+                SizedBox(height: size.height * 0.0243),
                 Text('PHONE NUMBER : ${customUserData.mappedDoc['phoneNo']}',
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: size.height * 0.0243,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5)),
-                SizedBox(height: 40.0),
+                //SizedBox(height: 40.0),
+                Divider(
+                  height: size.height * 0.07317,
+                  indent: size.width * 0.1216,
+                  endIndent: size.width * 0.1216,
+                  color: Colors.grey,
+                  thickness: 1.0,
+                ),
                 RoundedButton(
                     whichAuthentication: "Edit Profile",
                     pressed: () {
@@ -59,7 +65,8 @@ class _UserInformationState extends State<UserInformation> {
                         'name': customUserData.mappedDoc['name'],
                         'phoneNo': customUserData.mappedDoc['phoneNo'],
                         'emailId': customUserData.mappedDoc['emailId'],
-                        'newsSubscription': customUserData.mappedDoc['newsSubscription'],
+                        'newsSubscription':
+                            customUserData.mappedDoc['newsSubscription'],
                       });
                     }),
               ],

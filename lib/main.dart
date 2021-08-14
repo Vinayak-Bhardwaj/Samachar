@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:samachar/Screens/Authenticate/Register/register.dart';
 import 'package:samachar/Screens/Authenticate/SignIn/sign_in.dart';
@@ -16,11 +17,23 @@ import 'package:samachar/Services/auth.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:samachar/Services/database.dart';
+import 'package:samachar/Services/notification.dart';
 import 'Screens/wrapper.dart';
+
+
+///Receive message when the app is in background
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationService.initialize();
   await Firebase.initializeApp();
+
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   AuthService _auth = AuthService();
   return runApp(MultiProvider(
     providers: [

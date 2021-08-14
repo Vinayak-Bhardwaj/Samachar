@@ -64,11 +64,6 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          // Text(
-                          //   "Login",
-                          //   style: TextStyle(fontWeight: FontWeight.bold),
-                          // ),
-                          //SizedBox(height: size.height * 0.03),
                           SvgPicture.asset(
                             "assets/login.svg",
                             height: size.height * 0.35,
@@ -129,7 +124,7 @@ class _SignInState extends State<SignIn> {
                             },
                             whichAuthentication: "LOGIN",
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: size.height*0.0121),
                           AlreadySignInOrSignUp(
                             tap: () {
                               //print('Im inside tap');
@@ -138,7 +133,7 @@ class _SignInState extends State<SignIn> {
                             text2: "SIGN UP",
                             text1: "Don’t have an Account ?",
                           ),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: size.height*0.00609),
                           Text(
                             error,
                             style: TextStyle(

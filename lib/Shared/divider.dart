@@ -16,7 +16,7 @@ class GetDivider extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: size.width*0.024),
             child: Text(
               "OR",
               style: TextStyle(

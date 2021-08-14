@@ -47,14 +47,14 @@ class _NewsCardState extends State<NewsCard> {
               child: Image.network(
                   (widget.imageLink != null) ?
                   '${widget.imageLink?.replaceAll('////', '//')}' :
-                  'https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/da755de0cef0e312848311445f4e6513.jpg',
+                  'https://image.shutterstock.com/image-vector/reading-news-on-digital-tablet-260nw-1687528333.jpg',
                   
                 ),
             ),
 
               Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: Text('${widget.description}', style: TextStyle(color: Colors.white, fontSize:15.0, letterSpacing: 0.5)),
+                child: Text( (widget.description != null) ? '${widget.description}' : '${widget.newsTitle}', style: TextStyle(color: Colors.white, fontSize:15.0, letterSpacing: 0.5)),
               ),
 
               SizedBox(height: 30.0, width: 1000),
@@ -85,7 +85,7 @@ class _NewsCardState extends State<NewsCard> {
               Image.network(
                 (widget.imageLink != null) ?
                 '${widget.imageLink?.replaceAll('////', '//')}' :
-                'https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/da755de0cef0e312848311445f4e6513.jpg',
+                'https://image.shutterstock.com/image-vector/reading-news-on-digital-tablet-260nw-1687528333.jpg',
                 
               ),
 
