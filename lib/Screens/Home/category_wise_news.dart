@@ -25,7 +25,7 @@ class _CategoryWiseNewsState extends State<CategoryWiseNews> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${data['title']}'),
+        title: Text('${data['title']}', style: TextStyle(fontFamily: 'Acme', fontSize: 21)),
       ),
       body: Container(
         color: Colors.white,

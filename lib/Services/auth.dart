@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:samachar/Models/customized_user.dart';
+import 'package:samachar/Screens/Home/news_subscription_page.dart';
 import 'package:samachar/Services/database.dart';
 
 class AuthService extends ChangeNotifier{
@@ -81,7 +82,8 @@ class AuthService extends ChangeNotifier{
       CustomizedUser? customizedUser = _userFromFirebaseUser(user);
       await DatabaseService(uid: customizedUser!.uid).updateUserData(result.user!.displayName, result.user!.email, result.user!.phoneNumber, 'none');
       loggedIn = true;
-      notifyListeners();
+      NewsSubscriptionPage();
+      //notifyListeners();
       return customizedUser;
     } on FirebaseAuthException catch(e) {
       print(e.toString());

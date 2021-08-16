@@ -11,12 +11,12 @@ class _CategoryCardState extends State<CategoryCard> {
 
 
   List<CustomizedCategory> list_of_category = [
-    CustomizedCategory(title: "Buisness News", imageLink: 'business4.jpeg', category_endpoint: "business"),
-    CustomizedCategory(title: "Enterntainment News", imageLink: 'entertainment.jpeg', category_endpoint: "entertainment"),
-    CustomizedCategory(title: "Health News", imageLink: 'health2.png', category_endpoint: "health"),
-    CustomizedCategory(title: "Science News", imageLink: 'science4.png', category_endpoint: "science"),
-    CustomizedCategory(title: "Sports News", imageLink: 'sports4.jpeg', category_endpoint: "sports"),
-    CustomizedCategory(title: "Technology News", imageLink: 'techq.png', category_endpoint: "technology"),
+    CustomizedCategory(title: "Buisness Headlines", imageLink: 'business4.jpeg', category_endpoint: "business"),
+    CustomizedCategory(title: "Enterntainment Headlines", imageLink: 'entertainment.jpeg', category_endpoint: "entertainment"),
+    CustomizedCategory(title: "Health Headlines", imageLink: 'health2.png', category_endpoint: "health"),
+    CustomizedCategory(title: "Science Headlines", imageLink: 'science4.png', category_endpoint: "science"),
+    CustomizedCategory(title: "Sports Headlines", imageLink: 'sports4.jpeg', category_endpoint: "sports"),
+    CustomizedCategory(title: "Technology Headlines", imageLink: 'techq.png', category_endpoint: "technology"),
   ];
 
 
@@ -39,7 +39,7 @@ class _CategoryCardState extends State<CategoryCard> {
         radius: size.height*0.0365,
         backgroundColor: Color(0xFFF1E6FF),
       ),
-      title: Text(list_of_category[index].title, style: TextStyle(letterSpacing: 1.0, fontWeight: FontWeight.bold)),
+      title: Text(list_of_category[index].title, style: TextStyle(letterSpacing: 1.0, fontWeight: FontWeight.bold, fontFamily: 'Acme', fontSize: 17)),
       onTap: () {
         Navigator.pushNamed(context, '/CategoryWiseNews', arguments: {
           'title' : list_of_category[index].title,

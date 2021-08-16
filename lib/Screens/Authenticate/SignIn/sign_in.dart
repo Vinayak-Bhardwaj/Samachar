@@ -64,6 +64,9 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          SizedBox(height: 30),
+                          Text("Samachar", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontFamily: 'Billabong', fontSize: 60)),
+                          SizedBox(height: 30),
                           SvgPicture.asset(
                             "assets/login.svg",
                             height: size.height * 0.35,

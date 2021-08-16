@@ -227,7 +227,7 @@ class _RegisterState extends State<Register> {
                                       loading = false;
                                     });
                                   } else {
-                                    Navigator.pushNamed(context, '/Home');
+                                    Navigator.pushNamed(context, '/NewsSubscriptionPage');
                                   }
                                 },
                               ),

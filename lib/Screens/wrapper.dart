@@ -9,6 +9,6 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthService>(context);
-    return !auth.loggedIn ? SignIn() : NotificationNews(title: "Hello");
+    return !auth.loggedIn ? SignIn() : NotificationNews();
   }
 }

@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
   int page = 0;
 
   List<String> appBar = [
-    "This is Single Category Screen",
+    "Samachar",
     "This is Multiple Category Screen",
     "This is the News paper screen",
     "This is the mews screen",
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         //leading: Container(),
-        title: Text(appBar[page]),
+        title: Text(appBar[page], style: TextStyle(fontFamily: (page != 0) ?  'Acme' : 'Billabong', fontSize: (page != 0) ? 21 : 40)),
         backgroundColor: Colors.indigo[400],
         elevation: 50.0,
         shadowColor: Colors.black,

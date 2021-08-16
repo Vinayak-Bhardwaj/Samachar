@@ -1,21 +1,35 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 import 'package:samachar/Screens/Home/home.dart';
+import 'package:samachar/Services/auth.dart';
+import 'package:samachar/Services/database.dart';
 
 class NotificationNews extends StatefulWidget {
-  NotificationNews({Key? key, required this.title}) : super(key: key);
-  final String title;
+  NotificationNews({Key? key}) : super(key: key);
+  //final String title;
 
   @override
   _NotificationNewsState createState() => _NotificationNewsState();
 }
 
 class _NotificationNewsState extends State<NotificationNews> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+
+
+  AuthService _auth = AuthService();
+  String title = 'sports';
+  String endpoint = 'sports';
+  
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
+  Future<void> saaraMasala() async{
+    final customUserData = Provider.of<DatabaseService>(context);
+    await customUserData.getData(_auth.currentUser()!.uid);
 
     ///Gives you the message on which user taps
     ///and it opened the app from terminated state
@@ -24,8 +38,8 @@ class _NotificationNewsState extends State<NotificationNews> {
         final routeFromMessage = message.data["route"];
         print(routeFromMessage);
         Navigator.of(context).pushNamed('/$routeFromMessage', arguments: {
-          'title': "Business",
-          'category_endpoint': 'business',
+          'title': customUserData.mappedDoc['newsSubscription'],
+          'category_endpoint': customUserData.mappedDoc['newsSubscription'],
         });
       }
     });
@@ -43,15 +57,32 @@ class _NotificationNewsState extends State<NotificationNews> {
       final routeFromMessage = message.data["route"];
       print(routeFromMessage);
       Navigator.of(context).pushNamed('/$routeFromMessage', arguments: {
-        'title': "Business",
-        'category_endpoint': 'business',
+        'title': customUserData.mappedDoc['newsSubscription'],
+        'category_endpoint': customUserData.mappedDoc['newsSubscription'],
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Home();
+
+    //final customUserData = Provider.of<DatabaseService>(context);
+
+    return FutureBuilder(
+      future: saaraMasala(),
+      builder: (context, snapshot) {
+        if(snapshot.connectionState == ConnectionState.done) {
+          // setState(() {
+          //   title = customUserData.mappedDoc['newsSubscription'];
+          //   endpoint = customUserData.mappedDoc['newsSubscription'];
+          // });
+          return Home();
+        }
+        else{
+          return CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
 
