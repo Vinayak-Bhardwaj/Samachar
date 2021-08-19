@@ -8,6 +8,9 @@ The application allows you to register yourself with a proper authentication usi
 
 
 
+## Video Tour of application
+
+https://user-images.githubusercontent.com/56202430/130072426-2769a4fe-7edc-4d06-b9e5-df3e3faa87ea.mp4
 
 ## Screen shots of application
 
